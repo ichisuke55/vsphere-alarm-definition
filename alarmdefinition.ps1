@@ -35,8 +35,5 @@ foreach ($enAlarmDefinition in $enAlarmDefinitions) {
 
 $csvData | Export-Csv -Path "AlarmDefinitions.csv" -NoTypeInformation -encoding UTF8
 
-# rollback default locale
-$sm.SetLocale("en_US")
-
 Disconnect-VIServer -Confirm:$false
 
