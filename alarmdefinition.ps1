@@ -15,6 +15,8 @@ $csvData = @()
 foreach ($enAlarmDefinition in $enAlarmDefinitions) {
     foreach ($jpAlarmDefinition in $jpAlarmDefinitions) {
         if ($enAlarmDefinition.ExtensionData.Info.SystemName -eq $jpAlarmDefinition.ExtensionData.Info.SystemName) {
+            $alarmAction = Get-AlarmAction -AlarmDefinition $enAlarmDefinition
+
             $systemName = $enAlarmDefinition.ExtensionData.Info.SystemName
             $nameEN = $enAlarmDefinition.Name
             $nameJP = $jpAlarmDefinition.Name
@@ -22,11 +24,13 @@ foreach ($enAlarmDefinition in $enAlarmDefinitions) {
             $enabled = $enAlarmDefinition.Enabled
 
             $csvDataEntry = New-Object PSObject -Property @{
+                'ID' = $alarmId
                 'SystemName' = $systemName
                 'Name_EN' = $nameEN
                 'Name_JP' = $nameJP
                 'Description' = $description
                 'Enabled' = $enabled
+                'ActionType' = $alarmAction.ActionType
             }
             $csvData += $csvDataEntry
         }
